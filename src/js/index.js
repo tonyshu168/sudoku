@@ -31,7 +31,22 @@ class Grid {
     });
 
     this._container.append($divArray);
+
+    return this;
+  }
+
+  layout() {
+    const width = $('span:first', this._container).width();
+    $('span', this._container)
+      .height(width)
+      .css({
+        'line-height': `${width}px`,
+        'font-size': width < 32 ? `${width /2 }px` : ''
+      });
+
+    return this;
   }
 }
 
-new Grid($('#container')).build();
+const grid = new Grid($('#container'));
+grid.build().layout();

@@ -10,6 +10,11 @@ const path = require('path'),
 
 const isProduction = /production/.test(process.env.NODE_ENV);
 
+function watch() {
+  gulp.watch('./src/**/*.less', gulp.series(lessTask));
+  gulp.watch('./src/**/*.js', gulp.series(webpackTask));
+}
+
 function webpackTask() {
   gulp.src('./src/**/*.js')
   .pipe(webpack(webpackConfig))
@@ -28,6 +33,7 @@ function lessTask() {
 function defaultTask( cb ) {
   webpackTask();
   lessTask();
+  watch();
   cb();
 }
 
