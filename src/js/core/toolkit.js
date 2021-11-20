@@ -22,6 +22,11 @@ const matrixToolkit = {
     }
   
     return Array;
+  },
+
+  // 检查指定位置是否可填写数字 n
+  checkFillable() {
+    return true;
   }
 }
 
