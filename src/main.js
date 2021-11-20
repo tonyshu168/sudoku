@@ -1,5 +1,8 @@
-import createMatrix from "./js/createMatrix";
+// import createMatrix from "./js/createMatrix";
 
-const matrix = createMatrix();
+// const matrix = createMatrix();
 
-console.log(matrix);
+// console.log(matrix);
+
+import './js/index';
+
