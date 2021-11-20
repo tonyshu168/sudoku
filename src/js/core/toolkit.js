@@ -1,3 +1,6 @@
+/*
+* 矩阵和数组相关工具
+*/
 const matrixToolkit = {
   createRow( val = 0 ) {
     const array = new Array(9);
@@ -20,7 +23,25 @@ const matrixToolkit = {
   
     return Array;
   }
-
 }
 
-module.exports = matrixToolkit;
+/*
+* 宫坐标工具
+*/
+const boxToolkit = {
+
+};
+
+// 工具集
+
+module.exports = class Toolkit {
+  // 矩阵和数据相关的工具
+  static get matrix() {
+    return matrixToolkit;
+  }
+
+  // 宫坐标系相关工具
+  static box() {
+    return boxToolkit;
+  }
+};
