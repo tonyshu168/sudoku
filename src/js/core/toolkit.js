@@ -31,7 +31,7 @@ const matrixToolkit = {
     const row = matrix[rowIndex];
     const column = this.createRow().map((v, i) => matrix[i][colIndex]);
     const { boxIndex } = boxToolkit.convertToBoxIndex(rowIndex, colIndex);
-    const box = boxToolkit.getBoxCell(matrix, boxIndex);
+    const box = boxToolkit.getBoxCells(matrix, boxIndex);
 
     for ( let i = 0; i < MAX_LENGTH; i++ ) {
       if ( row[i] === n || column[i] === n || box[i] === n ) { return false; }
@@ -45,13 +45,13 @@ const matrixToolkit = {
 * 宫坐标工具
 */
 const boxToolkit = {
-  getBoxCell( matrix, boxIndex ) {
+  getBoxCells( matrix, boxIndex ) {
     const startRowIndex = Math.floor(boxIndex / 3) * 3,
           startColIndex = boxIndex % 3 * 3;
           result = [];
 
     for ( let cellIndex = 0; cellIndex < MAX_LENGTH; cellIndex++ ) {
-      const rowIndex = startRowIndex + Matho.floor(cellIndex / 3),
+      const rowIndex = startRowIndex + Math.floor(cellIndex / 3),
             colIndex = startColIndex + cellIndex % 3;
       
       result.push(matrix[rowIndex][colIndex]);
@@ -84,7 +84,7 @@ module.exports = class Toolkit {
   }
 
   // 宫坐标系相关工具
-  static box() {
+  static get box() {
     return boxToolkit;
   }
 };

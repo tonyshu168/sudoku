@@ -5,7 +5,7 @@ const Toolkit = require('./toolkit');
 
 class Generator {
   generate() {
-    while ( ! this.internalGenerate() ) {
+    while ( !this.internalGenerate() ) {
       console.warn('Try again');
     }
   }
@@ -17,11 +17,13 @@ class Generator {
       .map(row => Toolkit.matrix.shuffle(row));
 
     for ( let i = 1; i <= 9; i++ ) {
-      if ( !this.fillNumber(n) ) { return false; }
+      if ( !this.fillNumber(i) ) { return false; }
     }
+
+    return true;
   }
 
-  fillNmber(n) {
+  fillNumber(n) {
     return this.fillRow(n, 0);
   }
 
@@ -54,3 +56,5 @@ class Generator {
     return false;
   }
 }
+
+module.exports = Generator;
