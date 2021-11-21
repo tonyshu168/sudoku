@@ -5,21 +5,31 @@ const Toolkit = require('./toolkit');
 
 class Generator {
   generate() {
+    while ( ! this.internalGenerate() ) {
+      console.warn('Try again');
+    }
+  }
+
+  internalGenerate() {
     this.matrix = Toolkit.matrix.createMatrix();
+    this.orders = Toolkit.matrix.createMatrix()
+      .map(row => row.map((value, i) => i))
+      .map(row => Toolkit.matrix.shuffle(row));
 
     for ( let i = 1; i <= 9; i++ ) {
-      this.fillNumber(n);
+      if ( !this.fillNumber(n) ) { return false; }
     }
   }
 
   fillNmber(n) {
-    this.fillRow(n, 0);
+    return this.fillRow(n, 0);
   }
 
   fillRow(n, rowIndex) {
     if ( rowIndex > 8 ) { return true; }
 
     const row = this.matrix[rowIndex];
+    const orders = this.orders[rowIndex];
 
     for ( let i = 0; i < 9; i++ ) {
       const colIndex = i;
@@ -27,7 +37,7 @@ class Generator {
       if ( row[colIndex] ) { continue; }
 
       // 检查这个位置是否可以填写 n
-      if ( !Toolkit.matrix.checkFillable() ) { continue; }
+      if ( !Toolkit.matrix.checkFillable(this.matrix, n, rowIndex, colIndex) ) { continue; }
 
       row[colIndex] = n;
 
