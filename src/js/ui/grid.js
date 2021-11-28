@@ -1,4 +1,6 @@
 const Toolkit = require('../core/toolkit');
+// const Generator = require('../core/generator');
+const Sudoku = require('../core/soduku');
 /*
 * 生成发九宫格
 */
@@ -8,13 +10,21 @@ class Grid {
   }
 
   build() {
-    const matrix = Toolkit.matrix.createMatrix();
+    // const generateor = new Generator();
+    // generateor.generate();
+
+    // const matrix = generateor.matrix;
+    const sudoku = new Sudoku();
+    sudoku.make();
+    const matrix = sudoku.puzzleMatrix;
+
     const rowGroupClasses = ['row_g_top', 'row_g_middle', 'row_g_bottom'];
     const colGroupClasses = ['col_g_left', 'col_g_center', 'col_g_right'];
 
     const $cells = matrix.map(rowValues => rowValues.map((cellValue, idx) => {
       return $('<span>')
         .addClass(colGroupClasses[idx % 3])
+        .addClass(cellValue ? 'fixed' : 'empty')
         .text(cellValue);
     }));
 
