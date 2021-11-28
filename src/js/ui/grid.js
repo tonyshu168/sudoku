@@ -51,6 +51,13 @@ class Grid {
 
     return this;
   }
+
+  bindPopup( popupNumbers ) {
+    this._container.on('click', 'span', e => {
+      const $cell = $(e.target);
+      popupNumbers.popup($cell);
+    });
+  }
 }
 
 module.exports = Grid;
