@@ -64,6 +64,12 @@ body {
       &.empty {
         color: transparent;
       }
+      &.mark1 {
+        background: lightpink;
+      }
+      &.mark2 {
+        background: lightgreen;
+      }
     }
 
     &.row_g_bottom {
@@ -80,6 +86,19 @@ body {
       >span {
         border-bottom-width: 2px;
       }
+    }
+  }
+}
+
+@popupCellSize: 40px;
+.popup-num {
+  .container();
+
+  .row {
+    > span {
+      width: @popupCellSize;
+      height: @popupCellSize;
+      line-height: @popupCellSize;
     }
   }
 }
