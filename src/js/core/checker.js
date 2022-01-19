@@ -62,7 +62,7 @@ module.exports = class Checker {
 
     // 检查是否成功
     this._success = this._matrixMarks.every(row => {
-      row.every(mark => mark);
+      return row.every(mark => mark);
     });
 
     return this._success;

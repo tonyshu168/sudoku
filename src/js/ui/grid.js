@@ -17,7 +17,9 @@ class Grid {
     // const matrix = generateor.matrix;
     const sudoku = new Sudoku();
     sudoku.make();
-    const matrix = sudoku.puzzleMatrix;
+    // 测试代码
+    const matrix = sudoku.soluationMatirx;
+    // const matrix = sudoku.puzzleMatrix;
 
     const rowGroupClasses = ['row_g_top', 'row_g_middle', 'row_g_bottom'];
     const colGroupClasses = ['col_g_left', 'col_g_center', 'col_g_right'];
@@ -68,21 +70,43 @@ class Grid {
           .map($data => $data.toArray());
 
           console.log(data);
-    // const checker = new Checker( data );
+    const checker = new Checker( data );
+    if ( checker.check() ) {
+      return true;
+    }
+
+    // 检查不成功，进行标记
+    const marks = checker.matrixMarks;
+    this._container.children()
+      .each((rowIndex, div) => {
+        $(div).children().each((colIndex, span) => {
+          const $span = $(span);
+          if ( $span.is('.fixed') || marks[rowIndex][colIndex] ) {
+            $span.removeClass('error');
+          }
+          else {
+            $span.addClass('error');
+          }
+        })
+      })
   }
 
   /*
   * 重置当前谜盘到初始状态
   */
   reset() {
-
+    this._container.find('span:not(.fixed)')
+      .removeClass('error mark1 mark2')
+      .addClass('empty')
+      .text(0);
   }
 
   /*
   * 清除错误标记
   */
   clear() {
-
+    this._container.find('span.error')
+      .removeClass('error');
   }
 
   rebuild() {
@@ -94,6 +118,7 @@ class Grid {
   bindPopup( popupNumbers ) {
     this._container.on('click', 'span', e => {
       const $cell = $(e.target);
+      if ( $cell.is('.fixed') ) { return; }
       popupNumbers.popup($cell);
     });
   }
